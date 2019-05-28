@@ -51,8 +51,7 @@ app.get('/', (req, res) => {
 
     ArticleDetails.find().sort({ _id: 'asc' }).limit(10).exec((err, doc) => {
         if (err) return res.status(400).send(err);
-        console.log('Articles Documents....');
-        console.log(doc);
+
         res.render('home', {
             articles: doc
         });
@@ -71,7 +70,6 @@ app.get('/games/:id', auth, (req, res) => {
         UserReviewDetails.find({ 'postId': req.params.id }, (err, UserReview) => {
             if (err) return res.status(400).send(err);
 
-            console.log(UserReview);
             res.render('article', {
                 date: moment(Articledoc.createdAt).format('MM/DD/YY'),
                 Articledoc,
@@ -144,10 +142,8 @@ app.get('/dashboard/logout', auth, (req, res) => {
 app.post('/api/register', (req, res) => {
 
     UserDetails.create(req.body, (err, doc) => {
-        if (err) {
-            return res.status(400).send(err);
-        }
-        console.log('Before generate Token:');
+        if (err)  return res.status(400).send(err);
+        
         doc.generateToken((err, user) => {
             if (err) return res.status(400).send(err);
             res.cookie('Auth', user.token).send('OK');
