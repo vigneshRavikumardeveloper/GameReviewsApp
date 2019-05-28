@@ -1,0 +1,70 @@
+ <div class="container_login">
+        <form id="login_form">
+            <h1>Log in</h1>
+            <div>
+                <input type="text" id="email" name="email" placeholder="enter your mail">
+            </div>
+
+            <div>
+                <input type="password" id="password" name="password" placeholder="enter your password">
+            </div>
+
+            <button type="submit">Log in</button>
+            <span>or
+                <a href="/register">Register</a>
+            </span>
+        </form>
+</div>
+
+<script>
+    $("#login_form").validate({
+			rules: {
+                email: {
+                   required: true,
+                   email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                }
+			},
+			messages: {
+                email:"Please enter a valid email",
+                password:{
+                    required:"The password is required",
+                    minlength:"The min is 6 characters"
+                },
+			},
+            submitHandler: function(form,event) {
+                event.preventDefault();
+                submitForm();
+            }
+	});
+
+    function submitForm(){
+     
+        const UserData={
+           email:$('#email').val(),
+           password:$('#password').val()
+        };
+        
+        console.log(UserData);
+
+        $.ajax({
+            type:'POST',
+            url:'/api/login',
+            data:JSON.stringify(UserData),
+            contentType:'application/json',
+            success:function(data){
+               console.log(data);
+               window.location.href='/dashboard';
+            },
+            error:function(err){
+                console.log(err);
+               alert(err);
+            }
+        });
+
+    }
+
+</script>
