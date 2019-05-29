@@ -1,12 +1,12 @@
 const config={
    production:{
        SECRET:process.env.SECRET,
-       DATABASE:'mongodb://vignesh:viki123@ds263436.mlab.com:63436/game_div_reviews',
+       DATABASE:process.env.DATABASE,
        PORT:process.env.PORT
    },
    default:{
       SECRET:'ABCD12345',
-      DATABASE:'mongodb://vignesh:viki123@ds263436.mlab.com:63436/game_div_reviews',
+      DATABASE:'mongodb://localhost:27017/game_div_app',
       PORT:8000
    }
 };
