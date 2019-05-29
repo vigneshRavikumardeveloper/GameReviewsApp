@@ -92,8 +92,7 @@ userSchema.methods.comparePassword = function (logpassword, cb) {
 userSchema.statics.findByToken = function (token, cb) {
 
     const user = this;
-    console.log('Inside findByToken Method.....');
-    console.log(user);
+
     jwt.verify(token, config.SECRET, (err, decode) => {
         if (err) return cb(err);
 
@@ -112,7 +111,7 @@ userSchema.methods.deleteToken = function (token, cb) {
     var user = this;
 
     console.log('Before Deleting Token.....');
-    console.log(user);
+
 
     user.update({ $unset: { token: 1 } }, (err, user) => {
         if (err) return cb(err);
